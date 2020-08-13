@@ -84,11 +84,9 @@ export default () => {
         }));
         // Alle spelers op de kaart zetten
         players.forEach((player) => {
-          console.log(player);
+          // console.log(player);
           // Eerst kijken of de huidige speler de tagger is
           if (player.data.tagger === true && player.email === currentUser) {
-            console.log(player.email);
-            console.log(player.data.lat);
             const coords = [player.data.long, player.data.lat];
             mapBox.displayTagger(coords, player.email);
             mapBox.flyTo(player.data.long, player.data.lat);
@@ -105,6 +103,12 @@ export default () => {
         });
       });
   });
+
+  const taggerDelay = setInterval(() => {
+    game.whoSIt(gameName);
+  }, 5000);
+  console.log(taggerDelay);
+
   // DOM Aanspreken
   const btnMovePlayers = document.getElementById('movePlayers');
   btnMovePlayers.addEventListener('click', () => {

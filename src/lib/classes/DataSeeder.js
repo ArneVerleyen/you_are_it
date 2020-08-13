@@ -69,10 +69,6 @@ export default class DataSeeder {
     const randomIntLong = chance.floating({ min: -0.0015, max: 0.0015 });
     updatedLat = playerLat + randomIntLat;
     updatedLong = playerLong + randomIntLong;
-    console.log(updatedLat);
-    console.log(playerLat);
-
-    console.log(updatedLat);
 
     App.firebase.getFirestore().collection('games').doc('testGame').collection('players')
       .doc('test@test.com')
@@ -83,7 +79,6 @@ export default class DataSeeder {
   }
 
   async movePlayer(player) {
-    console.log('click');
     let playerLat;
     let playerLong;
     let updatedLat;
@@ -103,12 +98,6 @@ export default class DataSeeder {
         updatedLat = playerLat + randomIntLat;
         updatedLong = playerLong + randomIntLong;
       });
-
-
-    console.log(updatedLat);
-    console.log(playerLat);
-
-    console.log(updatedLat);
 
     App.firebase.getFirestore().collection('games').doc('testGame').collection('players')
       .doc(player)
