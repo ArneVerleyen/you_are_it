@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Start Game Page</title>
+
+</head>
+
+<body>
+	<div class="u-center-h">
+		<div>
+			<div class="u-spacer-rem">
+				<img src="../assets/icons/logo/You're_IT_Logo.png" alt="You're IT" class="a-logo-it">
+			</div>
+		</div>
+		<div class="u-center-h">
+			<p class="a-text-title u-spacer-l">game name:</p>
+			<input type="text" class="a-input" id="gameName">
+			<p class="a-text-title u-spacer-l">Amount of players</p>
+			<img class="a-logo-arrow" src="../assets/icons/pixil-frame-0.svg" alt="">
+			<form>
+				<select class="" name="amount of players" id="amountOfPlayers">
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select>
+			</form>
+			<p class="a-text-title u-spacer-l">Area</p>
+			<img class="a-logo-arrow" src="../assets/icons/pixil-frame-0.svg" alt="">
+			<form>
+				<select class="" name="Area" id="area">
+					<option value="500">500 meter</option>
+					<option value="600">600 meter</option>
+					<option value="700">700 meter</option>
+					<option value="800">800 meter</option>
+					<option value="900">900 meter</option>
+					<option value="1000">1000 meter</option>
+					<option value="1100">1100 meter</option>
+					<option value="1200">1200 meter</option>
+					<option value="1300">1300 meter</option>
+				</select>
+			</form>
+			<button class="a-text-title u-spacer-l" id="startBtn">Start Game</button>
+			<p class="a-text-title">{{routerLink "startscherm" "Back" }}</p>
+		</div>
+	</div>
+
+</body>
+
+</html>

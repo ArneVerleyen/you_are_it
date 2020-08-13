@@ -23,13 +23,50 @@ class MapBox {
   getDefaultOptions() {
     return {
       container: 'mapbox',
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: 'mapbox://styles/ziekemapbox/ck3zv6bai4or01ck0xvx5nc17',
       zoom: 13,
     };
   }
 
   getMap() {
     return this.map;
+  }
+
+  goTo(long, lat) {
+    this.map.jumpTo({ center: [long, lat] });
+  }
+
+  flyTo(long, lat) {
+    this.map.jumpTo({ center: [long, lat] });
+    this.map.zoomTo(14);
+  }
+
+  displayPlayer(coords, mail) {
+    if (document.contains(document.getElementById(mail))) {
+      document.getElementById(mail).remove();
+    }
+    const img = document.createElement('img');
+    img.src = '../../assets/icons/cirkel.png';
+    img.style.width = '35px';
+    img.style.height = '35px';
+    img.id = mail;
+    new mapboxgl.Marker(img)
+      .setLngLat(coords)
+      .addTo(this.getMap());
+  }
+
+  displayTagger(coords, mail) {
+    if (document.contains(document.getElementById(mail))) {
+      document.getElementById(mail).remove();
+    }
+    const img = document.createElement('img');
+    img.src = '../../assets/icons/Tikker.png';
+    img.style.width = '35px';
+    img.style.height = 'auto';
+    img.id = mail;
+    new mapboxgl.Marker(img)
+      .setLngLat(coords)
+      .addTo(this.getMap());
   }
 }
 

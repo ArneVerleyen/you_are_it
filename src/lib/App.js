@@ -1,3 +1,4 @@
+
 /**
  * The main App
  *
@@ -8,6 +9,7 @@ import Tools from './core/Tools';
 import Router from './core/Router';
 import Renderer from './core/Renderer';
 import FireBase from './core/FireBase';
+
 
 class App {
   static initCore({ mainUrl, hash, element }) {
@@ -22,6 +24,7 @@ class App {
   static get router() {
     return this._router;
   }
+
 
   static get renderer() {
     return this._renderer;

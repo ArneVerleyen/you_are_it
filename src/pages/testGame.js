@@ -6,22 +6,23 @@ import { MAPBOX_API_KEY } from '../consts';
 import MapBox from '../lib/core/MapBox';
 import Game from '../lib/classes/Game';
 import App from '../lib/App';
+import DataSeeder from '../lib/classes/DataSeeder';
 // import FireBase from '../lib/core/FireBase';
 import 'firebase/firestore';
 import 'firebase/auth';
 
-const mapboxTemplate = require('../templates/mapbox.hbs');
+const mapboxTemplate = require('../templates/testGame.hbs');
 
 export default () => {
   // set the title of this page
-  const title = 'Mapbox';
+  const title = 'test game';
 
   // render the template©
   App.render(mapboxTemplate({ title }));
 
   // create the MapBox options
   const mapBoxOptions = {
-    container: 'mapbox',
+    container: 'testMapbox',
     center: [3.670823, 51.087544],
     style: 'mapbox://styles/ziekemapbox/ck3zv6bai4or01ck0xvx5nc17',
     zoom: 13,
@@ -31,29 +32,27 @@ export default () => {
 
   // create game instance
   const game = new Game();
-  const gameName = localStorage.getItem('gameName');
+  const dataSeeder = new DataSeeder();
+  const gameName = 'testGame';
 
-  // const firebase = new FireBase();
-  // const currentUser = firebase.currentUser();
-  // console.log(currentUser);
-
+  dataSeeder.setUpTestGame();
 
   // get moderator lat and long to center map
-  game.ModLatLong(gameName);
-  const latMod = localStorage.getItem('modLatitude');
-  const longMod = localStorage.getItem('modLongitude');
+  // game.ModLatLong(gameName);
+  // const latMod = localStorage.getItem('modLatitude');
+  // const longMod = localStorage.getItem('modLongitude');
 
   // get tagger
   game.getRandomTagger(gameName);
   // Get current user
-  const currentUser = localStorage.getItem('currentFbUser');
+  const currentUser = 'test@test.com';
   // Get radius for game from firebase
   game.getGameRadius(gameName);
 
   // eslint-disable-next-line no-unused-vars
   const radius = localStorage.getItem('radius');
 
-  // VERANDEREN CHECKEN OF DE CLASS VERSIE ERVAN WERKT
+  /*
   navigator.geolocation.watchPosition(
     async (position) => {
       // update location in db
@@ -67,6 +66,7 @@ export default () => {
       enableHighAccuracy: true,
     },
   );
+  */
 
   // create a new MapBox instance
   // NOTE: make sure the HTML is rendered before making an instance of MapBox
@@ -75,9 +75,6 @@ export default () => {
   let players;
   const mapBox = new MapBox(MAPBOX_API_KEY, mapBoxOptions);
   mapBox.getMap().on('load', async () => {
-    // When map loads set location to location of the moderator
-    mapBox.flyTo(longMod, latMod);
-
     App.firebase.getFirestore().collection('games').doc(gameName).collection('players')
       .onSnapshot((docs) => {
       // get all member documents
@@ -85,7 +82,6 @@ export default () => {
           email: player.id,
           data: player.data(),
         }));
-        console.log(players);
         // Alle spelers op de kaart zetten
         players.forEach((player) => {
           console.log(player);
@@ -109,4 +105,16 @@ export default () => {
         });
       });
   });
+  // DOM Aanspreken
+  const btnMovePlayers = document.getElementById('movePlayers');
+  btnMovePlayers.addEventListener('click', () => {
+    dataSeeder.movePlayer(currentUser);
+    dataSeeder.movePlayer('player1');
+    dataSeeder.movePlayer('player2');
+    dataSeeder.movePlayer('player3');
+  });
+
+  /* dataSeeder.movePlayer2,
+    dataSeeder.movePlayer3,
+    dataSeeder.movePlayerTest */
 };

@@ -7,7 +7,9 @@ html {
 }
 
 body {
-	min-height: 100%;
-	background-color: $background-color-primary;
-	padding-top: rem(80px);
+	min-height: 98%;
+	background-color: $black;
+	// padding-top: rem(25px);
+	border: 2px solid $yellow;
+	margin: 2%;
 }
