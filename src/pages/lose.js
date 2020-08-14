@@ -9,4 +9,12 @@ export default () => {
 
   // render the template
   App.render(loseTemplate({ title }));
+  const btnStartSchermLose = document.getElementById('startSchermLose');
+  const btnloseLogoutBtn = document.getElementById('loseLogoutBtn');
+  btnStartSchermLose.addEventListener('click', () => {
+    App.router.navigate('/startScherm');
+  });
+  btnloseLogoutBtn.addEventListener('click', () => {
+    App.router.navigate('/login');
+  });
 };

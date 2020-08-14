@@ -137,9 +137,9 @@ export default () => {
           clearInterval(taggerInterval);
           const winner = game.endGame(gameName, currentUser);
           if (winner) {
-            App.router.redirect('/win');
+            App.router.navigate('/win');
           } else {
-            App.router.redirect('/lose');
+            App.router.navigate('/lose');
           }
         }
       }, 1000);
