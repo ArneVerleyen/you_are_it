@@ -46,8 +46,8 @@ export default () => {
   game.getRandomTagger(gameName);
   // Get current user
   const currentUser = 'test@test.com';
-  // Get radius for game from firebase
-  game.getGameRadius(gameName);
+  // Get rules for game from firebase
+  game.getGameRules(gameName);
 
   // eslint-disable-next-line no-unused-vars
   const radius = localStorage.getItem('radius');
@@ -89,6 +89,7 @@ export default () => {
           if (player.data.tagger === true && player.email === currentUser) {
             const coords = [player.data.long, player.data.lat];
             mapBox.displayTagger(coords, player.email);
+            console.log(player.email);
             mapBox.flyTo(player.data.long, player.data.lat);
             // Speler op de kaart zetten als hij geen tagger is
           } else if (player.email === currentUser) {
@@ -104,10 +105,10 @@ export default () => {
       });
   });
 
-  const taggerDelay = setInterval(() => {
-    game.whoSIt(gameName);
+  const taggerInterval = setInterval(() => {
+    game.whoSIt(gameName, 0.002);
   }, 5000);
-  console.log(taggerDelay);
+  console.log(taggerInterval);
 
   // DOM Aanspreken
   const btnMovePlayers = document.getElementById('movePlayers');

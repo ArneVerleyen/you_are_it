@@ -11,6 +11,8 @@ import lobbyPage from './pages/lobby';
 import rulesLobbyPage from './pages/rulesLobby';
 import joinGamePage from './pages/joinGame';
 import testGamePage from './pages/testGame';
+import winPage from './pages/win';
+import losePage from './pages/lose';
 
 export default [
   { path: '/home', view: HomePage },
@@ -25,4 +27,6 @@ export default [
   { path: '/rulesLobby', view: rulesLobbyPage },
   { path: '/joinGame', view: joinGamePage },
   { path: '/testGame', view: testGamePage },
+  { path: '/win', view: winPage },
+  { path: '/lose', view: losePage },
 ];

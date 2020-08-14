@@ -62,15 +62,17 @@ export default class Game {
     }
   }
 
-  async getGameRadius(gameName) {
+  async getGameRules(gameName) {
     await App.firebase.getFirestore().collection('games').doc(gameName)
       .get()
       .then((doc) => {
         const gameRules = doc.data();
         const radius = gameRules.gameArea;
         const numberOfPlayers = gameRules.amountOfPlayers;
+        const time = gameRules.gameTime;
         localStorage.setItem('radius', radius);
         localStorage.setItem('amountOfPlayers', numberOfPlayers);
+        localStorage.setItem('time', time);
       });
   }
 
@@ -165,8 +167,30 @@ export default class Game {
     console.log(player, ' is removed from the game.');
   }
 
+  endGame(gameName, player) {
+    // eslint-disable-next-line no-unused-vars
+    let winner;
+    App.firebase.getFirestore('games').doc(gameName).collection('players')
+      .doc(player)
+      .get()
+      .then((doc) => {
+        const playerData = doc.data();
+        if (playerData.tagger) {
+          winner = false;
+        } else {
+          winner = true;
+        }
+      });
+    App.firebase.getFirestore('games').doc(gameName)
+      .update({
+        gameActive: false,
+        game: 'game has ended',
+      });
+    return winner;
+  }
 
-  async whoSIt(gameName) {
+
+  async whoSIt(gameName, tagDistance) {
     let latTag;
     let longTag;
     let tagger;
@@ -185,14 +209,14 @@ export default class Game {
             .then((querySnapshot2) => {
               querySnapshot2.forEach((doc2) => {
                 if (doc2.data().tagger === false) {
-                  console.log(doc2.data().lat);
+                  // console.log(doc2.data().lat);
                   const DistanceBetweenLat = Math.abs(latTag - doc2.data().lat);
                   const DistanceBetweenLong = Math.abs(longTag - doc2.data().long);
                   const unlucky = doc2.data().mail;
-                  console.log(DistanceBetweenLong);
-                  console.log(DistanceBetweenLat);
+                  // console.log(DistanceBetweenLong);
+                  // console.log(DistanceBetweenLat);
 
-                  if (DistanceBetweenLat <= 0.0015 && DistanceBetweenLong <= 0.0015) {
+                  if (DistanceBetweenLat <= tagDistance && DistanceBetweenLong <= tagDistance) {
                     console.log('Someone else is IT!');
                     // eslint-disable-next-line no-new
                     new Notification('You\'re not IT anymore... Run! You\'ve got 5 seconds!');
@@ -218,57 +242,3 @@ export default class Game {
       });
   }
 }
-
-/*
-async whoSIt(gameName) {
-    let latTag;
-    let longTag;
-    let tagger;
-
-    // Lat en long van de tikker ophalen
-    await App.firebase.getFirestore().collection('games').doc(gameName).collection('players')
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          if (doc.data().tagger === true) {
-            latTag = doc.data().lat;
-            longTag = doc.data().long;
-            tagger = doc.data().mail;
-          }
-        });
-      });
-    // kijken of de tikker dicht genoeg is bij iemand
-    await App.firebase.getFirestore().collection('games').doc(gameName).collection('players')
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          if (doc.data().tagger === false) {
-            const DistanceBetweenLat = Math.abs(latTag - doc.data().lat);
-            const DistanceBetweenLong = Math.abs(longTag - doc.data().long);
-            const unlucky = doc.data().mail;
-            console.log(DistanceBetweenLong);
-
-            if (DistanceBetweenLat <= 0.01 && DistanceBetweenLong <= 0.01) {
-              console.log('Someone else is IT!');
-              // eslint-disable-next-line no-new
-              new Notification('You\'re not IT anymore... Run! You\'ve got 10 seconds!');
-              App.firebase.getFirestore('games').doc(gameName).collection('players')
-                .doc(tagger)
-                .update({
-                  tagger: false,
-                });
-              // eslint-disable-next-line no-unused-vars
-              const taggerDelay = setTimeout(() => {
-                console.log(unlucky);
-                App.firebase.getFirestore('games').doc(gameName).collection('players')
-                  .doc(unlucky)
-                  .update({
-                    tagger: true,
-                  });
-              }, 10000);
-            }
-          }
-        });
-      });
-  }
-  */

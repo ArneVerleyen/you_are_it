@@ -12,6 +12,7 @@ export default class DataSeeder {
         gameArea: 5,
         numberOfPlayers: 4,
         name: 'testGame',
+        gameTime: 5,
       });
     App.firebase.getFirestore().collection('games').doc('testGame').collection('players')
       .doc('test@test.com')

@@ -1,3 +1,4 @@
+
 /**
  * The Mapbox Page
  */
@@ -47,11 +48,12 @@ export default () => {
   game.getRandomTagger(gameName);
   // Get current user
   const currentUser = localStorage.getItem('currentFbUser');
-  // Get radius for game from firebase
-  game.getGameRadius(gameName);
+  // Get rules for game from firebase
+  game.getGameRules(gameName);
 
   // eslint-disable-next-line no-unused-vars
   const radius = localStorage.getItem('radius');
+  const time = localStorage.getItem('time');
 
   // VERANDEREN CHECKEN OF DE CLASS VERSIE ERVAN WERKT
   navigator.geolocation.watchPosition(
@@ -77,6 +79,8 @@ export default () => {
   mapBox.getMap().on('load', async () => {
     // When map loads set location to location of the moderator
     mapBox.flyTo(longMod, latMod);
+    // eslint-disable-next-line no-new
+    new Notification('The game has started run!!!');
 
     App.firebase.getFirestore().collection('games').doc(gameName).collection('players')
       .onSnapshot((docs) => {
@@ -108,5 +112,38 @@ export default () => {
           }
         });
       });
+    const taggerInterval = setInterval(() => {
+      game.whoSIt(gameName, 0.002);
+    }, 5000);
+
+    console.log(taggerInterval);
+    function startTimer(duration) {
+      // eslint-disable-next-line one-var
+      let timerDurMinSec = duration,
+        minutes,
+        seconds;
+      // eslint-disable-next-line no-unused-vars
+      const timer = setInterval(() => {
+        minutes = parseInt(timerDurMinSec / 60, 10);
+        seconds = parseInt(timerDurMinSec % 60, 10);
+
+        minutes = minutes < 10 ? `0${minutes}` : minutes;
+        seconds = seconds < 10 ? `0${seconds}` : seconds;
+
+        console.log(`${minutes}:${seconds}`);
+        if (--timerDurMinSec < 0) {
+          console.log('time over');
+          clearInterval(timer);
+          clearInterval(taggerInterval);
+          const winner = game.endGame(gameName, currentUser);
+          if (winner) {
+            App.router.redirect('/win');
+          } else {
+            App.router.redirect('/lose');
+          }
+        }
+      }, 1000);
+    }
+    startTimer(time * 60);
   });
 };

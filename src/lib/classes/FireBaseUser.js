@@ -33,13 +33,13 @@ export default class FireBaseUser {
     });
   }
 
-  writeFireBaseGame(gameName, amountOfPlayers, area, userID, email) {
+  writeFireBaseGame(gameName, amountOfPlayers, area, userID, email, time) {
     firebase.firestore().collection('games').doc(gameName).set({
       gameArea: area,
       numberOfPlayers: amountOfPlayers,
       name: gameName,
       gameActive: false,
-      gameTime: 60000,
+      gameTime: time,
     });
     firebase.firestore().collection('games').doc(gameName).collection('players')
       .doc(email)

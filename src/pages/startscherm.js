@@ -9,11 +9,16 @@ export default () => {
 
   // render the template
   App.render(startschermTemplate({ title }));
-
+  // Dom aanspreken
   const logoutBtn = document.getElementById('logoutBtn');
 
   logoutBtn.addEventListener('click', () => {
-    App.firebase.logOut()
-      .then(() => App.router.navigate('/login'));
+    App.firebase.logOut();
+    App.router.navigate('/login');
   });
 };
+
+/*
+App.firebase.logOut()
+      .then(() => App.router.navigate('/login'));
+*/

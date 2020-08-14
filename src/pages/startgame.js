@@ -21,11 +21,13 @@ export default () => {
   const gameNameForm = document.getElementById('gameName');
   const amountOfPlayersForm = document.getElementById('amountOfPlayers');
   const areaForm = document.getElementById('area');
+  const timeForm = document.getElementById('time');
 
   // default value
   function SetDefaultValue() {
     document.getElementById('amountOfPlayers').value = 2;
     document.getElementById('area').value = 500;
+    document.getElementById('time').value = 5;
   }
   window.onload = SetDefaultValue();
 
@@ -36,8 +38,9 @@ export default () => {
     const gameName = gameNameForm.value;
     const amountOfPlayers = amountOfPlayersForm.value;
     const area = areaForm.value;
+    const time = timeForm.value;
     // console.log(gameName, amountOfPlayers);
-    fireBaseUser.writeFireBaseGame(gameName, amountOfPlayers, area, userID, mail);
+    fireBaseUser.writeFireBaseGame(gameName, amountOfPlayers, area, userID, mail, time);
 
     // store game name in local storage
     localStorage.setItem('gameName', gameName);
