@@ -34,11 +34,6 @@ export default () => {
   const game = new Game();
   const gameName = localStorage.getItem('gameName');
 
-  // const firebase = new FireBase();
-  // const currentUser = firebase.currentUser();
-  // console.log(currentUser);
-
-
   // get moderator lat and long to center map
   game.ModLatLong(gameName);
   const latMod = localStorage.getItem('modLatitude');
@@ -130,7 +125,7 @@ export default () => {
         minutes = minutes < 10 ? `0${minutes}` : minutes;
         seconds = seconds < 10 ? `0${seconds}` : seconds;
 
-        console.log(`${minutes}:${seconds}`);
+        // console.log(`${minutes}:${seconds}`);
         if (--timerDurMinSec < 0) {
           console.log('time over');
           clearInterval(timer);

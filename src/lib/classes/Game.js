@@ -2,13 +2,7 @@ import App from '../App';
 
 import 'firebase/firestore';
 import 'firebase/auth';
-/*
-    @TODO Maak random tikker selector
-    @TODO Aftellen naar game
-    @TODO Spelgebied afbakenen + Waarschuwingen als je eruit komt
-    @TODO Tik mechanisme
-    @TODO Menu maken
-*/
+
 export default class Game {
   // Get moderator lat long
   async ModLatLong(gameName) {
@@ -139,7 +133,6 @@ export default class Game {
         });
     }
     this.lastUpdate = time;
-    console.log(this.lastUpdate);
   }
 
   getPlayers(gameName) {
@@ -209,12 +202,10 @@ export default class Game {
             .then((querySnapshot2) => {
               querySnapshot2.forEach((doc2) => {
                 if (doc2.data().tagger === false) {
-                  // console.log(doc2.data().lat);
+
                   const DistanceBetweenLat = Math.abs(latTag - doc2.data().lat);
                   const DistanceBetweenLong = Math.abs(longTag - doc2.data().long);
                   const unlucky = doc2.data().mail;
-                  // console.log(DistanceBetweenLong);
-                  // console.log(DistanceBetweenLat);
 
                   if (DistanceBetweenLat <= tagDistance && DistanceBetweenLong <= tagDistance) {
                     console.log('Someone else is IT!');
@@ -227,7 +218,6 @@ export default class Game {
                       });
                     // eslint-disable-next-line no-unused-vars
                     const taggerDelay = setTimeout(() => {
-                      console.log(unlucky);
                       App.firebase.getFirestore().collection('games').doc(gameName).collection('players')
                         .doc(unlucky)
                         .update({

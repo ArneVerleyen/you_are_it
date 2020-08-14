@@ -21,36 +21,9 @@ export default class Lobby {
       const text = document.createTextNode(player);
       li.appendChild(text);
       document.getElementById('playersUl').appendChild(li);
-      console.log(player);
     });
     return playersArray;
   }
-  /*
-
-    */
-  /*
-    const ulPlayers = document.getElementById('players');
-    const div = document.createElement('div');
-    div.innerHTML = playersArray.forEach((player) => `<div>${player}</div>`);
-    ulPlayers.appendChild(div);
-    */
-
-  /*
-  async playersInLobby(gameName) {
-    const playerDoc = await App.firebase.getFirestore().collection('games').doc(gameName).collection('players')
-      .get();
-    const playersArray = [];
-    playerDoc.forEach((player) => {
-      playersArray.push(
-        player.id,
-      );
-    });
-    const ulPlayers = document.getElementById('players');
-    const div = document.createElement('div');
-    div.innerHTML = `<ul>${playersArray.map((player) => `<div>${player}</div>`).join('')}</ul>`;
-    ulPlayers.appendChild(div);
-  }
-  */
 
   // check amount of player in lobby and compare to the amount of player you need to start the game
 
@@ -65,22 +38,9 @@ export default class Lobby {
           );
         });
       });
-    /*
-    async checkAmountOfPlayers(gameName) {
-        // collectie van spelers ophalen en in een array zetten
-        const playerDoc = await App.firebase.getFirestore().collection('games').doc(gameName).collection('players')
-          .get();
-        const playersArray = [];
-        playerDoc.forEach((player) => {
-          playersArray.push(
-            player.id,
-          );
-        });
-    */
 
     // Aantal spelers in Array tellen
     const amountOfPlayersInLobby = playersArray.length;
-    console.log(amountOfPlayersInLobby);
     localStorage.setItem('amountOfPlayersInLobby', amountOfPlayersInLobby);
     await App.firebase.getFirestore().collection('games').doc(gameName)
       .get()
@@ -88,7 +48,6 @@ export default class Lobby {
         const gameRules = doc.data();
 
         const amountOfPlayersNeeded = gameRules.numberOfPlayers;
-        // console.log(amountOfPlayersNeeded);
         localStorage.setItem('amountOfPlayersNeeded', amountOfPlayersNeeded);
       });
     let amountOfPlayersNeeded = localStorage.getItem('amountOfPlayersNeeded');
@@ -103,7 +62,6 @@ export default class Lobby {
       console.log('waiting for players');
     }
   }
-
 
   // Start Game if all players are there
 

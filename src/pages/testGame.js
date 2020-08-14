@@ -37,11 +37,6 @@ export default () => {
 
   dataSeeder.setUpTestGame();
 
-  // get moderator lat and long to center map
-  // game.ModLatLong(gameName);
-  // const latMod = localStorage.getItem('modLatitude');
-  // const longMod = localStorage.getItem('modLongitude');
-
   // get tagger
   game.getRandomTagger(gameName);
   // Get current user
@@ -51,22 +46,6 @@ export default () => {
 
   // eslint-disable-next-line no-unused-vars
   const radius = localStorage.getItem('radius');
-
-  /*
-  navigator.geolocation.watchPosition(
-    async (position) => {
-      // update location in db
-      await game.updateLocation(gameName, position, currentUser);
-      // Set location on map or update location
-    },
-    () => {
-      console.log('watch position is kapüt!');
-    },
-    {
-      enableHighAccuracy: true,
-    },
-  );
-  */
 
   // create a new MapBox instance
   // NOTE: make sure the HTML is rendered before making an instance of MapBox
@@ -84,7 +63,6 @@ export default () => {
         }));
         // Alle spelers op de kaart zetten
         players.forEach((player) => {
-          // console.log(player);
           // Eerst kijken of de huidige speler de tagger is
           if (player.data.tagger === true && player.email === currentUser) {
             const coords = [player.data.long, player.data.lat];
@@ -118,8 +96,4 @@ export default () => {
     dataSeeder.movePlayer('player2');
     dataSeeder.movePlayer('player3');
   });
-
-  /* dataSeeder.movePlayer2,
-    dataSeeder.movePlayer3,
-    dataSeeder.movePlayerTest */
 };

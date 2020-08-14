@@ -68,14 +68,6 @@ class FireBase {
     });
     return p;
   }
-  /*
-  writeFirebaseUser(email, userID) {
-    firebase.firestore().collection('users').doc(userID).set({
-      mail: email,
-      uid: userID,
-    });
-  }
-  */
 
   writeFireBaseGame(gameName, amountOfPlayers, area, userID, email) {
     firebase.firestore().collection('games').doc(gameName).set({

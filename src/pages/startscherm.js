@@ -18,7 +18,3 @@ export default () => {
   });
 };
 
-/*
-App.firebase.logOut()
-      .then(() => App.router.navigate('/login'));
-*/

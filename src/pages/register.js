@@ -19,7 +19,7 @@ export default () => {
 
   // knop event
   btnLogin.addEventListener('click', () => {
-    // TODO validator
+
     const email = emailInput.value;
     const password = passwordInput.value;
 

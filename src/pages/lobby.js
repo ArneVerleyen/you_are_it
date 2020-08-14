@@ -33,32 +33,8 @@ export default () => {
   btnLobbyStart.addEventListener('click', () => {
     lobby.StartGameBtn(lsGameName);
   });
-  /*
-  const playersUl = document.getElementById('playersUl');
-  function playersInDom(playersArray) {
-    for (let i = 0; i < playersArray.length; i++) {
-      const li = document.createElement('li');
-      const text = 'mijn naam';// document.createTextNode(playersArray[i]);
-      li.appendChild(text);
-      playersUl.innerHTML = li;
-    }
-  }
-  */
-
 
   lobby.playersInLobby(lsGameName);
   lobby.checkAmountOfPlayers(lsGameName);
   lobby.StartGame(lsGameName, currentUserFB);
-  /*
-  const StartGame = (gameName) => {
-    App.firebase.getFirestore().collection('games').doc(gameName)
-      .onSnapshot((doc) => {
-        if (doc.data().gameActive === true) {
-          App.router.navigate('mapbox');
-          clearInterval(playerIntervalID);
-        }
-      });
-  };
-  StartGame(lsGameName);
-  */
 };

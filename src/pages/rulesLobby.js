@@ -10,11 +10,4 @@ export default () => {
   // render the template
   App.render(rulesLobbyTemplate({ title }));
 
-  // dom btn aanspreken
-  /*
-  const btnLobbyRules = document.getElementById('backToLobbyBtn');
-  btnLobbyRules.addEventListener('click', () => {
-    App.router.navigate('lobby');
-  });
-  */
 };
