@@ -161,7 +161,7 @@ export default class Game {
   }
 
   removePlayer(gameName, player) {
-    App.firebase.getFirestore('games').doc(gameName).collection('players')
+    App.firebase.getFirestore().collection('games').doc(gameName).collection('players')
       .doc(player)
       .delete();
     console.log(player, ' is removed from the game.');
@@ -170,7 +170,7 @@ export default class Game {
   endGame(gameName, player) {
     // eslint-disable-next-line no-unused-vars
     let winner;
-    App.firebase.getFirestore('games').doc(gameName).collection('players')
+    App.firebase.getFirestore().collection('games').doc(gameName).collection('players')
       .doc(player)
       .get()
       .then((doc) => {
@@ -181,7 +181,7 @@ export default class Game {
           winner = true;
         }
       });
-    App.firebase.getFirestore('games').doc(gameName)
+    App.firebase.getFirestore().collection('games').doc(gameName)
       .update({
         gameActive: false,
         game: 'game has ended',
