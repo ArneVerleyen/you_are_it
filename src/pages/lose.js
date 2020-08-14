@@ -12,7 +12,7 @@ export default () => {
   const btnStartSchermLose = document.getElementById('startSchermLose');
   const btnloseLogoutBtn = document.getElementById('loseLogoutBtn');
   btnStartSchermLose.addEventListener('click', () => {
-    App.router.navigate('/startScherm');
+    App.router.navigate('/startscherm');
   });
   btnloseLogoutBtn.addEventListener('click', () => {
     App.router.navigate('/login');

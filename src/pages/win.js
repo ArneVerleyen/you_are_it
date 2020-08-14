@@ -9,4 +9,12 @@ export default () => {
 
   // render the template
   App.render(winTemplate({ title }));
+  const btnStartSchermWin = document.getElementById('btnWinStart');
+  const btnWinLogoutBtn = document.getElementById('btnLogoutWin');
+  btnStartSchermWin.addEventListener('click', () => {
+    App.router.navigate('/startscherm');
+  });
+  btnWinLogoutBtn.addEventListener('click', () => {
+    App.router.navigate('/login');
+  });
 };
